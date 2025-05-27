@@ -1,0 +1,23 @@
+package com.excusas.model.encargados;
+
+import com.excusas.model.excusas.Excusa;
+import com.excusas.model.excusas.motivos.MotivoComplejo;
+import com.excusas.model.empleados.Encargado;
+
+public class GerenteRecursosHumanos extends Encargado {
+
+    public GerenteRecursosHumanos(String nombre, String email, int legajo) {
+        super(nombre, email, legajo);
+    }
+
+    @Override
+    public boolean puedeManejarla(Excusa excusa) {
+        return excusa.getMotivo() instanceof MotivoComplejo;
+    }
+
+    @Override
+    public void procesarExcusa(Excusa excusa) {
+        System.out.println("Gerente de RRHH procesando excusa compleja para: " + excusa.getEmpleado().getNombre());
+        System.out.println("Excusa: " + excusa.getDescripcion());
+    }
+}
