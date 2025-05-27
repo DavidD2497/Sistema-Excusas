@@ -25,7 +25,7 @@ public class CEO extends Encargado implements IObservable, IObserver {
 
     @Override
     public boolean puedeManejarInverosimil() {
-        return true;  // ✅ CEO maneja inverosímiles
+        return true;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CEO extends Encargado implements IObservable, IObserver {
 
     @Override
     public void actualizar(Prontuario prontuario) {
-        System.out.println("🔔 CEO " + this.getNombre() + " notificado sobre nuevo prontuario de: " +
+        System.out.println("-CEO " + this.getNombre() + " notificado sobre nuevo prontuario de: " +
                 prontuario.getEmpleado().getNombre());
     }
 

@@ -70,35 +70,35 @@ public class Main {
 
         // ========== PROBAR TODOS LOS ESCENARIOS ==========
 
-        System.out.println("🔸 1. EXCUSA TRIVIAL → Recepcionista (NORMAL):");
+        System.out.println("1. EXCUSA TRIVIAL → Recepcionista (NORMAL):");
         System.out.println("Empleado: " + excusa1.getEmpleado().getNombre());
         System.out.println("Excusa: " + excusa1.getDescripcion());
         System.out.println("Esperado: Recepcionista la procesa directamente");
         recepcionista.manejarExcusa(excusa1);
         System.out.println("\n");
 
-        System.out.println("🔸 2. EXCUSA MODERADA → Supervisor (VAGO) → Gerente (PRODUCTIVO):");
+        System.out.println("2. EXCUSA MODERADA → Supervisor (VAGO) → Gerente (PRODUCTIVO):");
         System.out.println("Empleado: " + excusa2.getEmpleado().getNombre());
         System.out.println("Excusa: " + excusa2.getDescripcion());
         System.out.println("Esperado: Supervisor vago la pasa → Gerente productivo (No procesa excusas moderadas)");
         recepcionista.manejarExcusa(excusa2);
         System.out.println("\n");
 
-        System.out.println("🔸 3. EXCUSA MODERADA (Familiar) → Supervisor (VAGO) → Gerente (PRODUCTIVO):");
+        System.out.println("3. EXCUSA MODERADA (Familiar) → Supervisor (VAGO) → Gerente (PRODUCTIVO):");
         System.out.println("Empleado: " + excusa3.getEmpleado().getNombre());
         System.out.println("Excusa: " + excusa3.getDescripcion());
         System.out.println("Esperado: Supervisor vago la pasa → Gerente productivo (No procesa excusas moderadas)");
         recepcionista.manejarExcusa(excusa3);
         System.out.println("\n");
 
-        System.out.println("🔸 4. EXCUSA COMPLEJA → Gerente (PRODUCTIVO):");
+        System.out.println("4. EXCUSA COMPLEJA → Gerente (PRODUCTIVO):");
         System.out.println("Empleado: " + excusa4.getEmpleado().getNombre());
         System.out.println("Excusa: " + excusa4.getDescripcion());
         System.out.println("Esperado: Gerente productivo envía email al CTO y la procesa");
         recepcionista.manejarExcusa(excusa4);
         System.out.println("\n");
 
-        System.out.println("🔸 5. EXCUSA INVEROSÍMIL → CEO (NORMAL):");
+        System.out.println("5. EXCUSA INVEROSÍMIL → CEO (NORMAL):");
         System.out.println("Empleado: " + excusa5.getEmpleado().getNombre());
         System.out.println("Excusa: " + excusa5.getDescripcion());
         System.out.println("Esperado: CEO la procesa, crea prontuario y notifica a otros CEOs");

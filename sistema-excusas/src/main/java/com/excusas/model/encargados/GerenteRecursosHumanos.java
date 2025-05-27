@@ -11,7 +11,7 @@ public class GerenteRecursosHumanos extends Encargado {
 
     @Override
     public boolean puedeManejarComplejo() {
-        return true;  // ✅ Gerente maneja complejas
+        return true;
     }
 
     @Override

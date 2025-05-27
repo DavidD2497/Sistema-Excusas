@@ -16,7 +16,7 @@ public class EncargadoPorDefecto extends Encargado {
 
     @Override
     public boolean puedeManejarla(Excusa excusa) {
-        return true; // Siempre puede "manejar" (rechazar)
+        return true;
     }
 
     @Override

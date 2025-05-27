@@ -17,7 +17,7 @@ public class Recepcionista extends Encargado {
 
     @Override
     public boolean puedeManejarTrivial() {
-        return true;  // ✅ Recepcionista maneja triviales
+        return true;
     }
 
     @Override

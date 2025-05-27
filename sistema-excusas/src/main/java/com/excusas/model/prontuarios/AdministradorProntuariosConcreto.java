@@ -35,7 +35,6 @@ public class AdministradorProntuariosConcreto extends AdministradorProntuarios i
     @Override
     public void agregarProntuario(Prontuario prontuario) {
         super.agregarProntuario(prontuario);
-        // Notifica a todos los CEOs cuando se agrega un nuevo prontuario
         notificarObservadores(prontuario);
     }
 }

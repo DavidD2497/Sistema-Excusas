@@ -16,7 +16,7 @@ public class SupervisorArea extends Encargado {
 
     @Override
     public boolean puedeManejarModerado() {
-        return true;  // ✅ Supervisor maneja moderadas
+        return true;
     }
 
     @Override
