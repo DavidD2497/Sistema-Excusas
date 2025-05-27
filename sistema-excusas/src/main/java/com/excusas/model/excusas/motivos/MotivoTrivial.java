@@ -6,6 +6,6 @@ public class MotivoTrivial extends MotivoExcusa {
 
     @Override
     public boolean esAceptablePor(IEncargado encargado) {
-        return encargado.puedeManejarTrivial();  // ✅ Sin instanceof
+        return encargado.puedeManejarTrivial();
     }
 }
