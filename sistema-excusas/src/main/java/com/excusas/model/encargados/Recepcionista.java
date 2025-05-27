@@ -16,8 +16,8 @@ public class Recepcionista extends Encargado {
     }
 
     @Override
-    public boolean puedeManejarla(Excusa excusa) {
-        return excusa.getMotivo() instanceof MotivoTrivial;
+    public boolean puedeManejarTrivial() {
+        return true;  // ✅ Recepcionista maneja triviales
     }
 
     @Override

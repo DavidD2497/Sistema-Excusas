@@ -6,7 +6,6 @@ import com.excusas.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;
-import com.excusas.model.excusas.motivos.MotivoInverosimil;
 import com.excusas.model.prontuarios.AdministradorProntuarios;
 import com.excusas.model.prontuarios.Prontuario;
 
@@ -25,8 +24,8 @@ public class CEO extends Encargado implements IObservable, IObserver {
     }
 
     @Override
-    public boolean puedeManejarla(Excusa excusa) {
-        return excusa.getMotivo() instanceof MotivoInverosimil;
+    public boolean puedeManejarInverosimil() {
+        return true;  // ✅ CEO maneja inverosímiles
     }
 
     @Override

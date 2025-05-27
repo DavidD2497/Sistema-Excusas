@@ -3,7 +3,6 @@ package com.excusas.model.encargados;
 import com.excusas.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.excusas.Excusa;
-import com.excusas.model.excusas.motivos.MotivoModerado;
 import com.excusas.model.empleados.Encargado;
 
 public class SupervisorArea extends Encargado {
@@ -16,8 +15,8 @@ public class SupervisorArea extends Encargado {
     }
 
     @Override
-    public boolean puedeManejarla(Excusa excusa) {
-        return excusa.getMotivo() instanceof MotivoModerado;
+    public boolean puedeManejarModerado() {
+        return true;  // ✅ Supervisor maneja moderadas
     }
 
     @Override
