@@ -30,25 +30,39 @@ public abstract class Encargado extends Empleado implements IEncargado {
 
     @Override
     public void manejarExcusa(Excusa excusa) {
-        estrategia.manejar(this, excusa);
+        this.estrategia.manejar(this, excusa);
     }
 
-    public boolean puedeManejarla(Excusa excusa) {
-        return excusa.getMotivo().esAceptablePor(this);
+    @Override
+    public void ejecutarProcesamiento(Excusa excusa) {
+        if (excusa.puedeSerManejadaPor(this)) {
+            this.procesarExcusa(excusa);
+        } else if (this.getSiguiente() != null) {
+            this.getSiguiente().manejarExcusa(excusa);
+        }
     }
 
     @Override
     public abstract void procesarExcusa(Excusa excusa);
-    
-    @Override
-    public boolean puedeManejarTrivial() { return false; }
 
     @Override
-    public boolean puedeManejarModerado() { return false; }
+    public boolean puedeManejarTrivial() {
+        return false;
+    }
 
     @Override
-    public boolean puedeManejarComplejo() { return false; }
+    public boolean puedeManejarModerado() {
+        return false;
+    }
 
     @Override
-    public boolean puedeManejarInverosimil() { return false; }
+    public boolean puedeManejarComplejo() {
+        return false;
+    }
+
+    @Override
+    public boolean puedeManejarInverosimil() {
+        return false;
+    }
 }
+

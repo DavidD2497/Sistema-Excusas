@@ -25,14 +25,14 @@ public class SupervisorArea extends Encargado {
 
         if (excusa.getDescripcion().toLowerCase().contains("luz") ||
                 excusa.getDescripcion().toLowerCase().contains("corte")) {
-            emailSender.enviarEmail("EDESUR@mailfake.com.ar", this.getEmail(),
+            this.emailSender.enviarEmail("EDESUR@mailfake.com.ar", this.getEmail(),
                     "Consulta corte de luz", "Consulta si hubo corte de luz");
             System.out.println("Consultando a EDESUR sobre corte de luz");
         }
 
         if (excusa.getDescripcion().toLowerCase().contains("familiar") ||
                 excusa.getDescripcion().toLowerCase().contains("cuidar")) {
-            emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
+            this.emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
                     "Consulta familiar", "¿Todo está bien?");
             System.out.println("Preguntando al empleado si todo está bien con el familiar");
         }

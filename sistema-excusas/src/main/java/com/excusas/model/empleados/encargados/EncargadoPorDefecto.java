@@ -15,14 +15,14 @@ public class EncargadoPorDefecto extends Encargado {
     }
 
     @Override
-    public boolean puedeManejarla(Excusa excusa) {
-        return true;
+    public void ejecutarProcesamiento(Excusa excusa) {
+        this.procesarExcusa(excusa);
     }
 
     @Override
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Excusa rechazada: necesitamos pruebas contundentes");
-        emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
+        this.emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
                 "Excusa rechazada", "Excusa rechazada: necesitamos pruebas contundentes");
     }
 }

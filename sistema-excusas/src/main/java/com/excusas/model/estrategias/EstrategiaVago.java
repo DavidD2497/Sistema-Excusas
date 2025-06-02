@@ -7,7 +7,6 @@ public class EstrategiaVago extends EstrategiaManejo {
 
     @Override
     public void ejecutarEstrategia(Encargado encargado, Excusa excusa) {
-
         if (encargado.getSiguiente() != null) {
             encargado.getSiguiente().manejarExcusa(excusa);
         }

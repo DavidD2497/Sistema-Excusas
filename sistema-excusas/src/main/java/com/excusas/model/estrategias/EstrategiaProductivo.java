@@ -15,15 +15,10 @@ public class EstrategiaProductivo extends EstrategiaManejo {
 
     @Override
     public void ejecutarEstrategia(Encargado encargado, Excusa excusa) {
-
-        emailSender.enviarEmail("cto@excusas.com", encargado.getEmail(),
+        this.emailSender.enviarEmail("cto@excusas.com", encargado.getEmail(),
                 "Procesamiento productivo",
                 "Procesando excusa de manera productiva para: " + excusa.getEmpleado().getNombre());
 
-        if (encargado.puedeManejarla(excusa)) {
-            encargado.procesarExcusa(excusa);
-        } else if (encargado.getSiguiente() != null) {
-            encargado.getSiguiente().manejarExcusa(excusa);
-        }
+        encargado.ejecutarProcesamiento(excusa);
     }
 }

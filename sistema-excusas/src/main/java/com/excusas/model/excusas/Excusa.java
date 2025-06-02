@@ -3,6 +3,7 @@ package com.excusas.model.excusas;
 import com.excusas.model.excusas.interfaces.IExcusa;
 import com.excusas.model.excusas.motivos.MotivoExcusa;
 import com.excusas.model.empleados.Empleado;
+import com.excusas.model.empleados.interfaces.IEncargado;
 
 public class Excusa implements IExcusa {
 
@@ -18,16 +19,21 @@ public class Excusa implements IExcusa {
 
     @Override
     public Empleado getEmpleado() {
-        return empleado;
+        return this.empleado;
     }
 
     @Override
     public MotivoExcusa getMotivo() {
-        return motivo;
+        return this.motivo;
     }
 
     @Override
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
+    }
+
+    @Override
+    public boolean puedeSerManejadaPor(IEncargado encargado) {
+        return this.motivo.esAceptablePor(encargado);
     }
 }
