@@ -1,9 +1,8 @@
-package com.excusas.model.encargados;
+package com.excusas.model.empleados.encargados;
 
-import com.excusas.interfaces.IEmailSender;
+import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.excusas.Excusa;
-import com.excusas.model.excusas.motivos.MotivoTrivial;
 import com.excusas.model.empleados.Encargado;
 
 public class Recepcionista extends Encargado {

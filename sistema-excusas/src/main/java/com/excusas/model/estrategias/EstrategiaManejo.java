@@ -1,6 +1,6 @@
 package com.excusas.model.estrategias;
 
-import com.excusas.interfaces.IEstrategiaManejo;
+import com.excusas.model.estrategias.interfaces.IEstrategiaManejo;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;
 

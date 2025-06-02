@@ -1,6 +1,6 @@
 package com.excusas.model.excusas.motivos;
 
-import com.excusas.interfaces.IEncargado;
+import com.excusas.model.empleados.interfaces.IEncargado;
 
 public abstract class MotivoExcusa {
 

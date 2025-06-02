@@ -1,7 +1,7 @@
 package com.excusas;
 
 import com.excusas.model.empleados.Empleado;
-import com.excusas.model.encargados.*;
+import com.excusas.model.empleados.encargados.*;
 import com.excusas.model.estrategias.EstrategiaNormal;
 import com.excusas.model.estrategias.EstrategiaProductivo;
 import com.excusas.model.estrategias.EstrategiaVago;

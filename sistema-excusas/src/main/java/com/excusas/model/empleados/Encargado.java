@@ -1,7 +1,7 @@
 package com.excusas.model.empleados;
 
-import com.excusas.interfaces.IEncargado;
-import com.excusas.interfaces.IEstrategiaManejo;
+import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.estrategias.interfaces.IEstrategiaManejo;
 import com.excusas.model.excusas.Excusa;
 
 public abstract class Encargado extends Empleado implements IEncargado {

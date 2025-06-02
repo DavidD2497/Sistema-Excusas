@@ -1,6 +1,6 @@
 package com.excusas.model.empleados;
 
-import com.excusas.interfaces.IEmpleado;
+import com.excusas.model.empleados.interfaces.IEmpleado;
 
 public class Empleado implements IEmpleado {
 

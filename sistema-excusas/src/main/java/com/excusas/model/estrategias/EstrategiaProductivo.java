@@ -1,6 +1,6 @@
 package com.excusas.model.estrategias;
 
-import com.excusas.interfaces.IEmailSender;
+import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;

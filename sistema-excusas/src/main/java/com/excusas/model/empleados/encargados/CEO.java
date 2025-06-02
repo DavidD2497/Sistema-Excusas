@@ -1,8 +1,8 @@
-package com.excusas.model.encargados;
+package com.excusas.model.empleados.encargados;
 
-import com.excusas.interfaces.IObservable;
-import com.excusas.interfaces.IObserver;
-import com.excusas.interfaces.IEmailSender;
+import com.excusas.model.prontuarios.interfaces.IObservable;
+import com.excusas.model.prontuarios.interfaces.IObserver;
+import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;

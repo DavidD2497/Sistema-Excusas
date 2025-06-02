@@ -1,6 +1,6 @@
 package com.excusas.model.prontuarios;
 
-import com.excusas.interfaces.IObserver;
+import com.excusas.model.prontuarios.interfaces.IObserver;
 
 public class ObservadorBase implements IObserver {
 

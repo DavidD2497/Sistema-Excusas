@@ -1,6 +1,6 @@
 package com.excusas.model.excusas;
 
-import com.excusas.interfaces.IExcusa;
+import com.excusas.model.excusas.interfaces.IExcusa;
 import com.excusas.model.excusas.motivos.MotivoExcusa;
 import com.excusas.model.empleados.Empleado;
 

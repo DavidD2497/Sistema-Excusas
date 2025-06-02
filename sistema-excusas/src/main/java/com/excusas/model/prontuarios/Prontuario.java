@@ -1,6 +1,6 @@
 package com.excusas.model.prontuarios;
 
-import com.excusas.interfaces.IProntuario;
+import com.excusas.model.prontuarios.interfaces.IProntuario;
 import com.excusas.model.empleados.Empleado;
 import com.excusas.model.excusas.Excusa;
 

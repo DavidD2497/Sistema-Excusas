@@ -1,4 +1,4 @@
-package com.excusas.interfaces;
+package com.excusas.model.prontuarios.interfaces;
 
 import com.excusas.model.prontuarios.Prontuario;
 
