@@ -2,6 +2,7 @@ package com.excusas.model.empleados;
 
 import com.excusas.model.empleados.interfaces.IEncargado;
 import com.excusas.model.estrategias.interfaces.IEstrategiaManejo;
+import com.excusas.model.estrategias.EstrategiaNormal;
 import com.excusas.model.excusas.Excusa;
 
 public abstract class Encargado extends Empleado implements IEncargado {
@@ -11,6 +12,7 @@ public abstract class Encargado extends Empleado implements IEncargado {
 
     public Encargado(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
+        this.estrategia = new EstrategiaNormal();
     }
 
     @Override
@@ -26,6 +28,11 @@ public abstract class Encargado extends Empleado implements IEncargado {
     @Override
     public void setEstrategia(IEstrategiaManejo estrategia) {
         this.estrategia = estrategia;
+    }
+
+    @Override
+    public IEstrategiaManejo getEstrategia() {
+        return this.estrategia;
     }
 
     @Override
@@ -65,4 +72,5 @@ public abstract class Encargado extends Empleado implements IEncargado {
         return false;
     }
 }
+
 

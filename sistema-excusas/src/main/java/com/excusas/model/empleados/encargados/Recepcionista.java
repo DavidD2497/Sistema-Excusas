@@ -7,7 +7,7 @@ import com.excusas.model.empleados.Encargado;
 
 public class Recepcionista extends Encargado {
 
-    private IEmailSender emailSender;
+    private final IEmailSender emailSender;
 
     public Recepcionista(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
@@ -22,7 +22,11 @@ public class Recepcionista extends Encargado {
     @Override
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Recepcionista procesando excusa trivial para: " + excusa.getEmpleado().getNombre());
-        this.emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
-                "motivo demora", "la licencia fue aceptada");
+        this.emailSender.enviarEmail(
+                excusa.getEmpleado().getEmail(),
+                this.getEmail(),
+                "motivo demora",
+                "la licencia fue aceptada"
+        );
     }
 }

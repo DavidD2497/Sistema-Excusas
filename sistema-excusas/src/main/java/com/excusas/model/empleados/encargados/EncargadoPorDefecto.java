@@ -7,7 +7,7 @@ import com.excusas.model.excusas.Excusa;
 
 public class EncargadoPorDefecto extends Encargado {
 
-    private IEmailSender emailSender;
+    private final IEmailSender emailSender;
 
     public EncargadoPorDefecto(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
@@ -22,7 +22,12 @@ public class EncargadoPorDefecto extends Encargado {
     @Override
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Excusa rechazada: necesitamos pruebas contundentes");
-        this.emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
-                "Excusa rechazada", "Excusa rechazada: necesitamos pruebas contundentes");
+        this.emailSender.enviarEmail(
+                excusa.getEmpleado().getEmail(),
+                this.getEmail(),
+                "Excusa rechazada",
+                "Excusa rechazada: necesitamos pruebas contundentes"
+        );
     }
 }
+

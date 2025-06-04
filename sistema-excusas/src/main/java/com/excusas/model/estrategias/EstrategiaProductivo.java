@@ -7,7 +7,7 @@ import com.excusas.model.excusas.Excusa;
 
 public class EstrategiaProductivo extends EstrategiaManejo {
 
-    private IEmailSender emailSender;
+    private final IEmailSender emailSender;
 
     public EstrategiaProductivo() {
         this.emailSender = new EmailSenderConcreto();
@@ -15,9 +15,12 @@ public class EstrategiaProductivo extends EstrategiaManejo {
 
     @Override
     public void ejecutarEstrategia(Encargado encargado, Excusa excusa) {
-        this.emailSender.enviarEmail("cto@excusas.com", encargado.getEmail(),
+        this.emailSender.enviarEmail(
+                "cto@excusas.com",
+                encargado.getEmail(),
                 "Procesamiento productivo",
-                "Procesando excusa de manera productiva para: " + excusa.getEmpleado().getNombre());
+                "Procesando excusa de manera productiva para: " + excusa.getEmpleado().getNombre()
+        );
 
         encargado.ejecutarProcesamiento(excusa);
     }

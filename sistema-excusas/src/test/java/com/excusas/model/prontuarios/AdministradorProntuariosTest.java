@@ -27,19 +27,26 @@ class AdministradorProntuariosTest {
     }
 
     @AfterEach
-    void limpiarEstado() {
+    void tearDown() {
         administrador.getProntuarios().clear();
     }
 
     @Test
     void testSingleton() {
-        AdministradorProntuarios otra_instancia = AdministradorProntuarios.getInstance();
-        assertSame(administrador, otra_instancia);
+        AdministradorProntuarios otraInstancia = AdministradorProntuarios.getInstance();
+        assertSame(administrador, otraInstancia);
     }
 
     @Test
     void testAgregarObservador() {
         administrador.agregarObservador(ceo);
+        assertDoesNotThrow(() -> administrador.agregarProntuario(prontuario));
+    }
+
+    @Test
+    void testEliminarObservador() {
+        administrador.agregarObservador(ceo);
+        administrador.eliminarObservador(ceo);
         assertDoesNotThrow(() -> administrador.agregarProntuario(prontuario));
     }
 
@@ -55,5 +62,26 @@ class AdministradorProntuariosTest {
     void testNotificarObservadores() {
         administrador.agregarObservador(ceo);
         assertDoesNotThrow(() -> administrador.notificarObservadores(prontuario));
+    }
+
+    @Test
+    void testGetProntuarios() {
+        administrador.agregarProntuario(prontuario);
+        assertFalse(administrador.getProntuarios().isEmpty());
+
+        administrador.getProntuarios().clear();
+        assertFalse(administrador.getProntuarios().isEmpty());
+    }
+
+    @Test
+    void testMultiplesObservadores() {
+        CEO ceo2 = new CEO("Patricia CEO", "patricia@excusas.com", 2005);
+        CEO ceo3 = new CEO("Carlos CEO", "carlos@excusas.com", 2006);
+
+        administrador.agregarObservador(ceo);
+        administrador.agregarObservador(ceo2);
+        administrador.agregarObservador(ceo3);
+
+        assertDoesNotThrow(() -> administrador.agregarProntuario(prontuario));
     }
 }

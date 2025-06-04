@@ -10,7 +10,7 @@ import com.excusas.model.prontuarios.Prontuario;
 
 public class CEO extends Encargado implements IObserver {
 
-    private IEmailSender emailSender;
+    private final IEmailSender emailSender;
 
     public CEO(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
@@ -26,15 +26,23 @@ public class CEO extends Encargado implements IObserver {
     public void procesarExcusa(Excusa excusa) {
         System.out.println("CEO procesando excusa inverosímil para: " + excusa.getEmpleado().getNombre());
 
-        this.emailSender.enviarEmail(excusa.getEmpleado().getEmail(), this.getEmail(),
-                "Respuesta CEO", "Aprobado por creatividad");
+        this.emailSender.enviarEmail(
+                excusa.getEmpleado().getEmail(),
+                this.getEmail(),
+                "Respuesta CEO",
+                "Aprobado por creatividad"
+        );
         System.out.println("Respuesta: Aprobado por creatividad");
 
-        Prontuario prontuario = new Prontuario(excusa.getEmpleado(), excusa, excusa.getEmpleado().getLegajo());
+        Prontuario prontuario = new Prontuario(
+                excusa.getEmpleado(),
+                excusa,
+                excusa.getEmpleado().getLegajo()
+        );
         this.procesarActualizacion(prontuario);
     }
 
-    public void procesarActualizacion(Prontuario prontuario) {
+    private void procesarActualizacion(Prontuario prontuario) {
         AdministradorProntuarios.getInstance().agregarProntuario(prontuario);
     }
 

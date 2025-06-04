@@ -9,8 +9,8 @@ public abstract class EstrategiaManejo implements IEstrategiaManejo {
     public abstract void ejecutarEstrategia(Encargado encargado, Excusa excusa);
 
     @Override
-    public void manejar(Encargado encargado, Excusa excusa) {
-        ejecutarEstrategia(encargado, excusa);
+    public final void manejar(Encargado encargado, Excusa excusa) {
+        this.ejecutarEstrategia(encargado, excusa);
     }
 }
 

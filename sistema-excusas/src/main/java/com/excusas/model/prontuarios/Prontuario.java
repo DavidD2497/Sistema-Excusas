@@ -6,9 +6,9 @@ import com.excusas.model.excusas.Excusa;
 
 public class Prontuario implements IProntuario {
 
-    private Empleado empleado;
-    private Excusa excusa;
-    private int legajo;
+    private final Empleado empleado;
+    private final Excusa excusa;
+    private final int legajo;
 
     public Prontuario(Empleado empleado, Excusa excusa, int legajo) {
         this.empleado = empleado;
@@ -18,16 +18,16 @@ public class Prontuario implements IProntuario {
 
     @Override
     public Empleado getEmpleado() {
-        return empleado;
+        return this.empleado;
     }
 
     @Override
     public Excusa getExcusa() {
-        return excusa;
+        return this.excusa;
     }
 
     @Override
     public int getLegajo() {
-        return legajo;
+        return this.legajo;
     }
 }

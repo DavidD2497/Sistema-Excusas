@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MotivoExcusaTest {
 
     private MotivoTrivial motivoTrivial;
-    private MotivoModerado motivoModerado;
+    private MotivoProblemaFamiliar motivoProblemaFamiliar;
+    private MotivoProblemaElectrico motivoProblemaElectrico;
     private MotivoComplejo motivoComplejo;
     private MotivoInverosimil motivoInverosimil;
 
@@ -20,7 +21,8 @@ class MotivoExcusaTest {
     @BeforeEach
     void setUp() {
         motivoTrivial = new MotivoTrivial();
-        motivoModerado = new MotivoModerado();
+        motivoProblemaFamiliar = new MotivoProblemaFamiliar();
+        motivoProblemaElectrico = new MotivoProblemaElectrico();
         motivoComplejo = new MotivoComplejo();
         motivoInverosimil = new MotivoInverosimil();
 
@@ -39,11 +41,17 @@ class MotivoExcusaTest {
     }
 
     @Test
-    void testMotivoModeradoSoloAceptadoPorSupervisor() {
-        assertFalse(motivoModerado.esAceptablePor(recepcionista));
-        assertTrue(motivoModerado.esAceptablePor(supervisor));
-        assertFalse(motivoModerado.esAceptablePor(gerente));
-        assertFalse(motivoModerado.esAceptablePor(ceo));
+    void testMotivoModeradoAceptadoPorSupervisor() {
+        // Usamos las implementaciones concretas de MotivoModerado
+        assertFalse(motivoProblemaFamiliar.esAceptablePor(recepcionista));
+        assertTrue(motivoProblemaFamiliar.esAceptablePor(supervisor));
+        assertFalse(motivoProblemaFamiliar.esAceptablePor(gerente));
+        assertFalse(motivoProblemaFamiliar.esAceptablePor(ceo));
+
+        assertFalse(motivoProblemaElectrico.esAceptablePor(recepcionista));
+        assertTrue(motivoProblemaElectrico.esAceptablePor(supervisor));
+        assertFalse(motivoProblemaElectrico.esAceptablePor(gerente));
+        assertFalse(motivoProblemaElectrico.esAceptablePor(ceo));
     }
 
     @Test
@@ -61,5 +69,18 @@ class MotivoExcusaTest {
         assertFalse(motivoInverosimil.esAceptablePor(gerente));
         assertTrue(motivoInverosimil.esAceptablePor(ceo));
     }
+
+    @Test
+    void testEjecucionAccionesEspecificasProblemaFamiliar() {
+        assertDoesNotThrow(() ->
+                motivoProblemaFamiliar.ejecutarAccionesEspecificas(supervisor, "empleado@test.com"));
+    }
+
+    @Test
+    void testEjecucionAccionesEspecificasProblemaElectrico() {
+        assertDoesNotThrow(() ->
+                motivoProblemaElectrico.ejecutarAccionesEspecificas(supervisor, "empleado@test.com"));
+    }
 }
+
 

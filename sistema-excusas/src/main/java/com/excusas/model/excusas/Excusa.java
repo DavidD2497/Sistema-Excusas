@@ -7,9 +7,9 @@ import com.excusas.model.empleados.interfaces.IEncargado;
 
 public class Excusa implements IExcusa {
 
-    private Empleado empleado;
-    private MotivoExcusa motivo;
-    private String descripcion;
+    private final Empleado empleado;
+    private final MotivoExcusa motivo;
+    private final String descripcion;
 
     public Excusa(Empleado empleado, MotivoExcusa motivo, String descripcion) {
         this.empleado = empleado;
@@ -36,4 +36,9 @@ public class Excusa implements IExcusa {
     public boolean puedeSerManejadaPor(IEncargado encargado) {
         return this.motivo.esAceptablePor(encargado);
     }
+
+    public void ejecutarAccionesEspecificas(IEncargado encargado) {
+        this.motivo.ejecutarAccionesEspecificas(encargado, this.empleado.getEmail());
+    }
 }
+

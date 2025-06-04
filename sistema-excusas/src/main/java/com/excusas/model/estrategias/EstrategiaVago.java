@@ -12,3 +12,4 @@ public class EstrategiaVago extends EstrategiaManejo {
         }
     }
 }
+

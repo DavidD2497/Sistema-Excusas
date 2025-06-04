@@ -4,9 +4,9 @@ import com.excusas.model.empleados.interfaces.IEmpleado;
 
 public class Empleado implements IEmpleado {
 
-    private String nombre;
-    private String email;
-    private int legajo;
+    private final String nombre;
+    private final String email;
+    private final int legajo;
 
     public Empleado(String nombre, String email, int legajo) {
         this.nombre = nombre;
@@ -16,16 +16,17 @@ public class Empleado implements IEmpleado {
 
     @Override
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     @Override
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     @Override
     public int getLegajo() {
-        return legajo;
+        return this.legajo;
     }
 }
+

@@ -9,3 +9,4 @@ public class MotivoTrivial extends MotivoExcusa {
         return encargado.puedeManejarTrivial();
     }
 }
+
