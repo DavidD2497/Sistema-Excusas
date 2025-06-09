@@ -36,6 +36,23 @@ public class Excusa implements IExcusa {
     public boolean puedeSerManejadaPor(IEncargado encargado) {
         return this.motivo.esAceptablePor(encargado);
     }
+
+    public String getEmailEmpleado() {
+        return this.empleado.getEmail();
+    }
+
+    public String getNombreEmpleado() {
+        return this.empleado.getNombre();
+    }
+
+    public int getLegajoEmpleado() {
+        return this.empleado.getLegajo();
+    }
+
+    public void ejecutarAccionesEspecificas(IEncargado encargado) {
+        this.motivo.ejecutarAccionesEspecificas(encargado, this.empleado.getEmail());
+    }
 }
+
 
 

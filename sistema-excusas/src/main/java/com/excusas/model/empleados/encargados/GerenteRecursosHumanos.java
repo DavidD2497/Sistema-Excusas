@@ -15,8 +15,21 @@ public class GerenteRecursosHumanos extends Encargado {
     }
 
     @Override
+    protected void preprocesarExcusa(Excusa excusa) {
+        super.preprocesarExcusa(excusa);
+        System.out.println("Gerente de RRHH revisando políticas de la empresa...");
+    }
+
+    @Override
     public void procesarExcusa(Excusa excusa) {
-        System.out.println("Gerente de RRHH procesando excusa compleja para: " + excusa.getEmpleado().getNombre());
+        System.out.println("Gerente de RRHH procesando excusa compleja para: " + excusa.getNombreEmpleado());
         System.out.println("Excusa: " + excusa.getDescripcion());
     }
+
+    @Override
+    protected void postprocesarExcusa(Excusa excusa) {
+        super.postprocesarExcusa(excusa);
+        System.out.println("Gerente de RRHH ha documentado el caso para futuras referencias");
+    }
 }
+

@@ -15,9 +15,21 @@ public class SupervisorArea extends Encargado {
     }
 
     @Override
+    protected void preprocesarExcusa(Excusa excusa) {
+        super.preprocesarExcusa(excusa);
+        System.out.println("Supervisor de Área verificando detalles de la excusa moderada...");
+    }
+
+    @Override
     public void procesarExcusa(Excusa excusa) {
-        System.out.println("Supervisor de Área procesando excusa moderada para: " + excusa.getEmpleado().getNombre());
-        excusa.getMotivo().ejecutarAccionesEspecificas(this, excusa.getEmpleado().getEmail());
+        System.out.println("Supervisor de Área procesando excusa moderada para: " + excusa.getNombreEmpleado());
+        excusa.ejecutarAccionesEspecificas(this);
+    }
+
+    @Override
+    protected void postprocesarExcusa(Excusa excusa) {
+        super.postprocesarExcusa(excusa);
+        System.out.println("Supervisor de Área ha completado la verificación de la excusa");
     }
 }
 

@@ -12,7 +12,6 @@ public abstract class Encargado extends Empleado implements IEncargado {
 
     public Encargado(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
-        // Por defecto, todos los encargados inician con modo normal
         this.modo = new ModoNormal();
     }
 
@@ -42,12 +41,28 @@ public abstract class Encargado extends Empleado implements IEncargado {
     }
 
     @Override
-    public void ejecutarProcesamiento(Excusa excusa) {
+    public final void ejecutarProcesamiento(Excusa excusa) {
         if (excusa.puedeSerManejadaPor(this)) {
+            this.preprocesarExcusa(excusa);
             this.procesarExcusa(excusa);
+            this.postprocesarExcusa(excusa);
         } else if (this.getSiguiente() != null) {
             this.getSiguiente().manejarExcusa(excusa);
+        } else {
+            this.manejarExcusaNoManejable(excusa);
         }
+    }
+
+    protected void preprocesarExcusa(Excusa excusa) {
+        System.out.println("Iniciando procesamiento de excusa para: " + excusa.getNombreEmpleado());
+    }
+
+    protected void postprocesarExcusa(Excusa excusa) {
+        System.out.println("Finalizando procesamiento de excusa para: " + excusa.getNombreEmpleado());
+    }
+
+    protected void manejarExcusaNoManejable(Excusa excusa) {
+        System.out.println("Excusa no pudo ser manejada por ningún encargado");
     }
 
     @Override

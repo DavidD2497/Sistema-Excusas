@@ -2,17 +2,18 @@ package com.excusas.model.prontuarios;
 
 import com.excusas.model.excusas.Excusa;
 import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.prontuarios.interfaces.IObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-// Singleton - solo un administrador para todos los CEOs de la empresa
-public class AdministradorProntuarios extends ObservableBase {
+public class AdministradorProntuarios extends ObservableBase implements IObserver {
 
     private final List<Prontuario> prontuarios;
 
     private AdministradorProntuarios() {
         super();
         this.prontuarios = new ArrayList<>();
+        this.agregarObservador(this);
     }
 
     private static class SingletonHolder {
@@ -56,5 +57,11 @@ public class AdministradorProntuarios extends ObservableBase {
 
     public void limpiarProntuarios() {
         this.prontuarios.clear();
+    }
+
+    @Override
+    public void actualizar(Prontuario prontuario) {
+        System.out.println("AdministradorProntuarios: Nuevo prontuario registrado para " +
+                prontuario.getEmpleado().getNombre());
     }
 }

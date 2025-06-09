@@ -1,33 +1,33 @@
 package com.excusas.model.empleados.encargados;
 
 import com.excusas.model.excusas.Excusa;
+import com.excusas.model.empleados.interfaces.IEncargado;
 
 public class CadenaDeEncargados {
 
-    private final Recepcionista recepcionista;
-    private final SupervisorArea supervisor;
-    private final GerenteRecursosHumanos gerente;
-    private final CEO ceo;
-    private final EncargadoPorDefecto encargadoDefecto;
+    private final IEncargado primerEncargado;
 
     public CadenaDeEncargados() {
-        this.recepcionista = new Recepcionista("Laura Recep", "laura@excusas.com", 2001);
-        this.supervisor = new SupervisorArea("Pedro Super", "pedro@excusas.com", 2002);
-        this.gerente = new GerenteRecursosHumanos("Sofia Gerente", "sofia@excusas.com", 2003);
-        this.ceo = new CEO("Roberto CEO", "roberto@excusas.com", 2004);
-        this.encargadoDefecto = new EncargadoPorDefecto("Default Handler", "default@excusas.com", 2007);
-
-        this.configurarCadenaResponsabilidad();
+        this.primerEncargado = this.construirCadena();
     }
 
-    private void configurarCadenaResponsabilidad() {
-        this.recepcionista.setSiguiente(this.supervisor);
-        this.supervisor.setSiguiente(this.gerente);
-        this.gerente.setSiguiente(this.ceo);
-        this.ceo.setSiguiente(this.encargadoDefecto);
+    private IEncargado construirCadena() {
+
+        IEncargado recepcionista = new Recepcionista("Laura Recep", "laura@excusas.com", 2001);
+        IEncargado supervisor = new SupervisorArea("Pedro Super", "pedro@excusas.com", 2002);
+        IEncargado gerente = new GerenteRecursosHumanos("Sofia Gerente", "sofia@excusas.com", 2003);
+        IEncargado ceo = new CEO("Roberto CEO", "roberto@excusas.com", 2004);
+        IEncargado encargadoDefecto = new EncargadoPorDefecto("Default Handler", "default@excusas.com", 2007);
+
+        recepcionista.setSiguiente(supervisor);
+        supervisor.setSiguiente(gerente);
+        gerente.setSiguiente(ceo);
+        ceo.setSiguiente(encargadoDefecto);
+
+        return recepcionista;
     }
 
     public void procesarExcusa(Excusa excusa) {
-        this.recepcionista.manejarExcusa(excusa);
+        this.primerEncargado.manejarExcusa(excusa);
     }
 }

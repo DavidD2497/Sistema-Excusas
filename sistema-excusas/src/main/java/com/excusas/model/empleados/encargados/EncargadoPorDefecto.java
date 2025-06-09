@@ -1,6 +1,5 @@
 package com.excusas.model.empleados.encargados;
 
-import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.interfaces.IEncargado;
 import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
@@ -71,9 +70,8 @@ public class EncargadoPorDefecto implements IEncargado {
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Excusa rechazada: necesitamos pruebas contundentes");
 
-        IEmailSender emailSender = new EmailSenderConcreto();
-        emailSender.enviarEmail(
-                excusa.getEmpleado().getEmail(),
+        EmailSenderConcreto.getInstance().enviarEmail(
+                excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "Excusa rechazada",
                 "Excusa rechazada: necesitamos pruebas contundentes"

@@ -2,7 +2,6 @@ package com.excusas.model.empleados.encargados;
 
 import com.excusas.model.prontuarios.interfaces.IObserver;
 import com.excusas.model.prontuarios.Prontuario;
-import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;
@@ -21,19 +20,29 @@ public class CEO extends Encargado implements IObserver {
     }
 
     @Override
-    public void procesarExcusa(Excusa excusa) {
-        System.out.println("CEO procesando excusa extremadamente inverosímil para: " + excusa.getEmpleado().getNombre());
+    protected void preprocesarExcusa(Excusa excusa) {
+        super.preprocesarExcusa(excusa);
+        System.out.println("CEO evaluando excusa extremadamente inverosímil...");
+    }
 
-        IEmailSender emailSender = new EmailSenderConcreto();
-        emailSender.enviarEmail(
-                excusa.getEmpleado().getEmail(),
+    @Override
+    public void procesarExcusa(Excusa excusa) {
+        System.out.println("CEO procesando excusa extremadamente inverosímil para: " + excusa.getNombreEmpleado());
+
+        EmailSenderConcreto.getInstance().enviarEmail(
+                excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "Respuesta CEO",
                 "Aprobado por creatividad"
         );
         System.out.println("Respuesta: Aprobado por creatividad");
+    }
 
+    @Override
+    protected void postprocesarExcusa(Excusa excusa) {
+        super.postprocesarExcusa(excusa);
         AdministradorProntuarios.getInstance().notificarExcusaProcesada(excusa, this);
+        System.out.println("CEO ha completado el procesamiento y notificado al administrador de prontuarios");
     }
 
     @Override

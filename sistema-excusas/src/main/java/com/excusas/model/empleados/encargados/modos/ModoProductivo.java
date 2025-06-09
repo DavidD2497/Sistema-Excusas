@@ -1,16 +1,15 @@
 package com.excusas.model.empleados.encargados.modos;
 
-import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.interfaces.IEncargado;
 import com.excusas.model.excusas.Excusa;
+import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
 
-public class ModoProductivo extends ModoManejo {
+public class ModoProductivo implements IModoManejo {
 
     @Override
-    public void ejecutarModo(IEncargado encargado, Excusa excusa) {
-        IEmailSender emailSender = new EmailSenderConcreto();
-        emailSender.enviarEmail(
+    public void manejar(IEncargado encargado, Excusa excusa) {
+        EmailSenderConcreto.getInstance().enviarEmail(
                 "cto@excusas.com",
                 encargado.getEmail(),
                 "Procesamiento productivo",
@@ -19,3 +18,4 @@ public class ModoProductivo extends ModoManejo {
         encargado.ejecutarProcesamiento(excusa);
     }
 }
+

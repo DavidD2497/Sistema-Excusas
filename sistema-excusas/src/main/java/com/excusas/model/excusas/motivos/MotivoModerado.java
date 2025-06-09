@@ -1,6 +1,5 @@
 package com.excusas.model.excusas.motivos;
 
-import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.interfaces.IEncargado;
 
@@ -13,9 +12,7 @@ public abstract class MotivoModerado extends MotivoExcusa {
 
     @Override
     public final void ejecutarAccionesEspecificas(IEncargado encargado, String emailEmpleado) {
-        IEmailSender emailSender = new EmailSenderConcreto();
-
-        emailSender.enviarEmail(
+        EmailSenderConcreto.getInstance().enviarEmail(
                 getDestinatarioEmail(emailEmpleado),
                 encargado.getEmail(),
                 getAsuntoEmail(),
