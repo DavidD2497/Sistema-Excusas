@@ -1,5 +1,6 @@
 package com.excusas.model.excusas;
 
+import com.excusas.exceptions.ExcusaException;
 import com.excusas.model.excusas.interfaces.IExcusa;
 import com.excusas.model.excusas.motivos.MotivoExcusa;
 import com.excusas.model.empleados.Empleado;
@@ -12,6 +13,16 @@ public class Excusa implements IExcusa {
     private final String descripcion;
 
     public Excusa(Empleado empleado, MotivoExcusa motivo, String descripcion) {
+        if (empleado == null) {
+            throw new ExcusaException("El empleado no puede ser nulo");
+        }
+        if (motivo == null) {
+            throw new ExcusaException("El motivo de la excusa no puede ser nulo");
+        }
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            throw new ExcusaException("La descripción de la excusa no puede estar vacía");
+        }
+
         this.empleado = empleado;
         this.motivo = motivo;
         this.descripcion = descripcion;
@@ -53,6 +64,3 @@ public class Excusa implements IExcusa {
         this.motivo.ejecutarAccionesEspecificas(encargado, this.empleado.getEmail());
     }
 }
-
-
-

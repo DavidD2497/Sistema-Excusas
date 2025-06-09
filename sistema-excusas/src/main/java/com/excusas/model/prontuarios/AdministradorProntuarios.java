@@ -1,5 +1,6 @@
 package com.excusas.model.prontuarios;
 
+import com.excusas.exceptions.ProntuarioException;
 import com.excusas.model.excusas.Excusa;
 import com.excusas.model.empleados.interfaces.IEncargado;
 import com.excusas.model.prontuarios.interfaces.IObserver;
@@ -45,6 +46,13 @@ public class AdministradorProntuarios extends ObservableBase implements IObserve
     }
 
     public void agregarProntuario(Prontuario prontuario) {
+        if (prontuario == null) {
+            throw new ProntuarioException("El prontuario no puede ser nulo");
+        }
+        if (prontuario.getEmpleado() == null) {
+            throw new ProntuarioException("El empleado del prontuario no puede ser nulo");
+        }
+
         this.prontuarios.add(prontuario);
         System.out.println("Prontuario creado para empleado: " + prontuario.getEmpleado().getNombre());
 
