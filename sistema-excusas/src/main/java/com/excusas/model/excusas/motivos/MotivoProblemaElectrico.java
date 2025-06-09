@@ -1,27 +1,26 @@
 package com.excusas.model.excusas.motivos;
 
-import com.excusas.model.email.interfaces.IEmailSender;
-import com.excusas.model.email.EmailSenderConcreto;
-import com.excusas.model.empleados.interfaces.IEncargado;
-
 public class MotivoProblemaElectrico extends MotivoModerado {
 
-    private final IEmailSender emailSender;
+    private static final String EDESUR_EMAIL = "EDESUR@mailfake.com.ar";
 
-    public MotivoProblemaElectrico() {
-        this.emailSender = new EmailSenderConcreto();
+    @Override
+    protected String getDestinatarioEmail(String emailEmpleado) {
+        return EDESUR_EMAIL;
     }
 
     @Override
-    public void ejecutarAccionesEspecificas(IEncargado encargado, String emailEmpleado) {
-        this.emailSender.enviarEmail(
-                "EDESUR@mailfake.com.ar",
-                encargado.getEmail(),
-                "Consulta corte de luz",
-                "Consulta si hubo corte de luz"
-        );
-        System.out.println("Consultando a EDESUR sobre corte de luz");
+    protected String getAsuntoEmail() {
+        return "Consulta corte de luz";
+    }
+
+    @Override
+    protected String getCuerpoEmail() {
+        return "Consulta si hubo corte de luz en la zona";
+    }
+
+    @Override
+    protected String getMensajeLog() {
+        return "Consultando a EDESUR sobre corte de luz en la zona";
     }
 }
-
-

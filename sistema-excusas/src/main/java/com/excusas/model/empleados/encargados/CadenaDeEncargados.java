@@ -1,5 +1,7 @@
 package com.excusas.model.empleados.encargados;
 
+import com.excusas.model.excusas.Excusa;
+
 public class CadenaDeEncargados {
 
     private final Recepcionista recepcionista;
@@ -25,7 +27,7 @@ public class CadenaDeEncargados {
         this.ceo.setSiguiente(this.encargadoDefecto);
     }
 
-    public Recepcionista getRecepcionista() {
-        return this.recepcionista;
+    public void procesarExcusa(Excusa excusa) {
+        this.recepcionista.manejarExcusa(excusa);
     }
 }

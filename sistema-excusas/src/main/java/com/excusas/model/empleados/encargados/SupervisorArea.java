@@ -17,6 +17,7 @@ public class SupervisorArea extends Encargado {
     @Override
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Supervisor de Área procesando excusa moderada para: " + excusa.getEmpleado().getNombre());
-        excusa.ejecutarAccionesEspecificas(this);
+        excusa.getMotivo().ejecutarAccionesEspecificas(this, excusa.getEmpleado().getEmail());
     }
 }
+

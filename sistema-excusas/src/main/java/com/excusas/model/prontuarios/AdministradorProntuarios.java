@@ -1,51 +1,52 @@
 package com.excusas.model.prontuarios;
 
-import com.excusas.model.prontuarios.interfaces.IObservable;
-import com.excusas.model.prontuarios.interfaces.IObserver;
-
+import com.excusas.model.excusas.Excusa;
+import com.excusas.model.empleados.interfaces.IEncargado;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdministradorProntuarios implements IObservable {
+// Singleton - solo un administrador para todos los CEOs de la empresa
+public class AdministradorProntuarios extends ObservableBase {
 
-    private static AdministradorProntuarios instancia;
     private final List<Prontuario> prontuarios;
-    private final List<IObserver> observadores;
 
     private AdministradorProntuarios() {
+        super();
         this.prontuarios = new ArrayList<>();
-        this.observadores = new ArrayList<>();
     }
 
-    public static synchronized AdministradorProntuarios getInstance() {
-        if (instancia == null) {
-            instancia = new AdministradorProntuarios();
-        }
-        return instancia;
+    private static class SingletonHolder {
+        private static final AdministradorProntuarios INSTANCIA = new AdministradorProntuarios();
     }
 
-    @Override
-    public void agregarObservador(IObserver observador) {
-        this.observadores.add(observador);
+    public static AdministradorProntuarios getInstance() {
+        return SingletonHolder.INSTANCIA;
     }
 
-    @Override
-    public void eliminarObservador(IObserver observador) {
-        this.observadores.remove(observador);
-    }
-
-    @Override
-    public void notificarObservadores(Prontuario prontuario) {
-        List<IObserver> observadoresCopia = new ArrayList<>(this.observadores);
-        for (IObserver observador : observadoresCopia) {
-            observador.actualizar(prontuario);
+    public void notificarExcusaProcesada(Excusa excusa, IEncargado encargadoProcesador) {
+        if (this.debeCrearProntuario(excusa, encargadoProcesador)) {
+            Prontuario prontuario = this.crearProntuario(excusa);
+            this.agregarProntuario(prontuario);
         }
     }
 
-    @Override
+    private boolean debeCrearProntuario(Excusa excusa, IEncargado encargadoProcesador) {
+        return encargadoProcesador.puedeManejarInverosimil() &&
+                excusa.getMotivo().esAceptablePor(encargadoProcesador);
+    }
+
+    private Prontuario crearProntuario(Excusa excusa) {
+        return new Prontuario(
+                excusa.getEmpleado(),
+                excusa,
+                excusa.getEmpleado().getLegajo()
+        );
+    }
+
     public void agregarProntuario(Prontuario prontuario) {
         this.prontuarios.add(prontuario);
-        System.out.println("Prontuario agregado para empleado: " + prontuario.getEmpleado().getNombre());
+        System.out.println("Prontuario creado para empleado: " + prontuario.getEmpleado().getNombre());
+
         this.notificarObservadores(prontuario);
     }
 
@@ -53,10 +54,7 @@ public class AdministradorProntuarios implements IObservable {
         return new ArrayList<>(this.prontuarios);
     }
 
-    // Método para limpiar prontuarios (útil para tests)
     public void limpiarProntuarios() {
         this.prontuarios.clear();
     }
 }
-
-

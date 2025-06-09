@@ -1,18 +1,19 @@
 package com.excusas.model.empleados;
 
 import com.excusas.model.empleados.interfaces.IEncargado;
-import com.excusas.model.estrategias.interfaces.IEstrategiaManejo;
-import com.excusas.model.estrategias.EstrategiaNormal;
+import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
+import com.excusas.model.empleados.encargados.modos.ModoNormal;
 import com.excusas.model.excusas.Excusa;
 
 public abstract class Encargado extends Empleado implements IEncargado {
 
     private IEncargado siguiente;
-    private IEstrategiaManejo estrategia;
+    private IModoManejo modo;
 
     public Encargado(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
-        this.estrategia = new EstrategiaNormal();
+        // Por defecto, todos los encargados inician con modo normal
+        this.modo = new ModoNormal();
     }
 
     @Override
@@ -26,18 +27,18 @@ public abstract class Encargado extends Empleado implements IEncargado {
     }
 
     @Override
-    public void setEstrategia(IEstrategiaManejo estrategia) {
-        this.estrategia = estrategia;
+    public void setModo(IModoManejo modo) {
+        this.modo = modo;
     }
 
     @Override
-    public IEstrategiaManejo getEstrategia() {
-        return this.estrategia;
+    public IModoManejo getModo() {
+        return this.modo;
     }
 
     @Override
     public void manejarExcusa(Excusa excusa) {
-        this.estrategia.manejar(this, excusa);
+        this.modo.manejar(this, excusa);
     }
 
     @Override
@@ -72,5 +73,3 @@ public abstract class Encargado extends Empleado implements IEncargado {
         return false;
     }
 }
-
-

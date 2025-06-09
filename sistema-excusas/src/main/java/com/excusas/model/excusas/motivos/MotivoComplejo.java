@@ -9,3 +9,4 @@ public class MotivoComplejo extends MotivoExcusa {
         return encargado.puedeManejarComplejo();
     }
 }
+

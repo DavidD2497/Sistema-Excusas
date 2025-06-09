@@ -6,5 +6,4 @@ public interface IObservable {
     void agregarObservador(IObserver observador);
     void eliminarObservador(IObserver observador);
     void notificarObservadores(Prontuario prontuario);
-    void agregarProntuario(Prontuario prontuario);
 }

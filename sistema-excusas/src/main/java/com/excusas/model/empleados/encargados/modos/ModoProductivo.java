@@ -1,27 +1,21 @@
-package com.excusas.model.estrategias;
+package com.excusas.model.empleados.encargados.modos;
 
 import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
-import com.excusas.model.empleados.Encargado;
+import com.excusas.model.empleados.interfaces.IEncargado;
 import com.excusas.model.excusas.Excusa;
 
-public class EstrategiaProductivo extends EstrategiaManejo {
-
-    private final IEmailSender emailSender;
-
-    public EstrategiaProductivo() {
-        this.emailSender = new EmailSenderConcreto();
-    }
+public class ModoProductivo extends ModoManejo {
 
     @Override
-    public void ejecutarEstrategia(Encargado encargado, Excusa excusa) {
-        this.emailSender.enviarEmail(
+    public void ejecutarModo(IEncargado encargado, Excusa excusa) {
+        IEmailSender emailSender = new EmailSenderConcreto();
+        emailSender.enviarEmail(
                 "cto@excusas.com",
                 encargado.getEmail(),
                 "Procesamiento productivo",
                 "Procesando excusa de manera productiva para: " + excusa.getEmpleado().getNombre()
         );
-
         encargado.ejecutarProcesamiento(excusa);
     }
 }

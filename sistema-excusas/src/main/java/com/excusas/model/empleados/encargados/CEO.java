@@ -1,20 +1,18 @@
 package com.excusas.model.empleados.encargados;
 
 import com.excusas.model.prontuarios.interfaces.IObserver;
+import com.excusas.model.prontuarios.Prontuario;
 import com.excusas.model.email.interfaces.IEmailSender;
 import com.excusas.model.email.EmailSenderConcreto;
 import com.excusas.model.empleados.Encargado;
 import com.excusas.model.excusas.Excusa;
 import com.excusas.model.prontuarios.AdministradorProntuarios;
-import com.excusas.model.prontuarios.Prontuario;
 
 public class CEO extends Encargado implements IObserver {
 
-    private final IEmailSender emailSender;
-
     public CEO(String nombre, String email, int legajo) {
         super(nombre, email, legajo);
-        this.emailSender = new EmailSenderConcreto();
+        AdministradorProntuarios.getInstance().agregarObservador(this);
     }
 
     @Override
@@ -24,9 +22,10 @@ public class CEO extends Encargado implements IObserver {
 
     @Override
     public void procesarExcusa(Excusa excusa) {
-        System.out.println("CEO procesando excusa inverosímil para: " + excusa.getEmpleado().getNombre());
+        System.out.println("CEO procesando excusa extremadamente inverosímil para: " + excusa.getEmpleado().getNombre());
 
-        this.emailSender.enviarEmail(
+        IEmailSender emailSender = new EmailSenderConcreto();
+        emailSender.enviarEmail(
                 excusa.getEmpleado().getEmail(),
                 this.getEmail(),
                 "Respuesta CEO",
@@ -34,22 +33,12 @@ public class CEO extends Encargado implements IObserver {
         );
         System.out.println("Respuesta: Aprobado por creatividad");
 
-        Prontuario prontuario = new Prontuario(
-                excusa.getEmpleado(),
-                excusa,
-                excusa.getEmpleado().getLegajo()
-        );
-        this.procesarActualizacion(prontuario);
-    }
-
-    private void procesarActualizacion(Prontuario prontuario) {
-        AdministradorProntuarios.getInstance().agregarProntuario(prontuario);
+        AdministradorProntuarios.getInstance().notificarExcusaProcesada(excusa, this);
     }
 
     @Override
     public void actualizar(Prontuario prontuario) {
-        System.out.println("-CEO " + this.getNombre() + " notificado sobre nuevo prontuario de: " +
+        System.out.println("CEO " + this.getNombre() + " notificado sobre nuevo prontuario de: " +
                 prontuario.getEmpleado().getNombre());
     }
 }
-
