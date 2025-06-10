@@ -29,7 +29,7 @@ public class CEO extends Encargado implements IObserver {
     public void procesarExcusa(Excusa excusa) {
         System.out.println("CEO procesando excusa extremadamente inverosímil para: " + excusa.getNombreEmpleado());
 
-        EmailSenderConcreto.getInstance().enviarEmail(
+        new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "Respuesta CEO",

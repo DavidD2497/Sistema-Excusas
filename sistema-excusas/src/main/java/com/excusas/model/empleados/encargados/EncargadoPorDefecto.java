@@ -70,7 +70,7 @@ public class EncargadoPorDefecto implements IEncargado {
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Excusa rechazada: necesitamos pruebas contundentes");
 
-        EmailSenderConcreto.getInstance().enviarEmail(
+        new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "Excusa rechazada",

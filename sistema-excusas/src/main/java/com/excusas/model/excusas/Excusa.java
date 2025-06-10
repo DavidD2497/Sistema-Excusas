@@ -13,16 +13,6 @@ public class Excusa implements IExcusa {
     private final String descripcion;
 
     public Excusa(Empleado empleado, MotivoExcusa motivo, String descripcion) {
-        if (empleado == null) {
-            throw new ExcusaException("El empleado no puede ser nulo");
-        }
-        if (motivo == null) {
-            throw new ExcusaException("El motivo de la excusa no puede ser nulo");
-        }
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new ExcusaException("La descripción de la excusa no puede estar vacía");
-        }
-
         this.empleado = empleado;
         this.motivo = motivo;
         this.descripcion = descripcion;

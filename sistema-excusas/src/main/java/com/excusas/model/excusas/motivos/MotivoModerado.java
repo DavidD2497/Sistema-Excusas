@@ -12,7 +12,7 @@ public abstract class MotivoModerado extends MotivoExcusa {
 
     @Override
     public final void ejecutarAccionesEspecificas(IEncargado encargado, String emailEmpleado) {
-        EmailSenderConcreto.getInstance().enviarEmail(
+        new EmailSenderConcreto().enviarEmail(
                 getDestinatarioEmail(emailEmpleado),
                 encargado.getEmail(),
                 getAsuntoEmail(),

@@ -11,7 +11,7 @@ class EmailSenderConcretoTest {
 
     @BeforeEach
     void setUp() {
-        emailSender = EmailSenderConcreto.getInstance();
+        emailSender = new EmailSenderConcreto();
     }
 
     @Test
@@ -62,4 +62,3 @@ class EmailSenderConcretoTest {
         assertEquals("Error al enviar email: El asunto no puede estar vacío", exception.getMessage());
     }
 }
-

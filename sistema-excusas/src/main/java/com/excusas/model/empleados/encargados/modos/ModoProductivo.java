@@ -9,7 +9,7 @@ public class ModoProductivo implements IModoManejo {
 
     @Override
     public void manejar(IEncargado encargado, Excusa excusa) {
-        EmailSenderConcreto.getInstance().enviarEmail(
+        new EmailSenderConcreto().enviarEmail(
                 "cto@excusas.com",
                 encargado.getEmail(),
                 "Procesamiento productivo",
@@ -18,4 +18,3 @@ public class ModoProductivo implements IModoManejo {
         encargado.ejecutarProcesamiento(excusa);
     }
 }
-

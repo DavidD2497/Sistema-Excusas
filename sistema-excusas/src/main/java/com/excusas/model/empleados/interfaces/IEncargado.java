@@ -5,7 +5,6 @@ import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
 
 public interface IEncargado extends IEmpleado {
     void setSiguiente(IEncargado siguiente);
-    IEncargado getSiguiente();
     void setModo(IModoManejo modo);
     IModoManejo getModo();
     void manejarExcusa(Excusa excusa);
@@ -17,4 +16,3 @@ public interface IEncargado extends IEmpleado {
     boolean puedeManejarComplejo();
     boolean puedeManejarInverosimil();
 }
-

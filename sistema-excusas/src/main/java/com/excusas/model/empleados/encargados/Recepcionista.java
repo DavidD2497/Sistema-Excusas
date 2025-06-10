@@ -24,7 +24,7 @@ public class Recepcionista extends Encargado {
     @Override
     public void procesarExcusa(Excusa excusa) {
         System.out.println("Recepcionista procesando excusa trivial para: " + excusa.getNombreEmpleado());
-        EmailSenderConcreto.getInstance().enviarEmail(
+        new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "motivo demora",
