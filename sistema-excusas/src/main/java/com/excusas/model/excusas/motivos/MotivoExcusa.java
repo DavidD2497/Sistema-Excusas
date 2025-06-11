@@ -1,11 +1,15 @@
 package com.excusas.model.excusas.motivos;
 
-import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.empleados.interfaces.IManejadorExcusas;
+import com.excusas.model.empleados.encargados.SupervisorArea;
+import com.excusas.model.excusas.Excusa;
 
 public abstract class MotivoExcusa {
 
-    public abstract boolean esAceptablePor(IEncargado encargado);
+    public abstract boolean esAceptablePor(IManejadorExcusas encargado);
 
-    public void ejecutarAccionesEspecificas(IEncargado encargado, String emailEmpleado) {
+    public void procesarConSupervisor(SupervisorArea supervisor, Excusa excusa) {
+        supervisor.procesarMotivoModeradoGenerico(excusa);
     }
 }
+

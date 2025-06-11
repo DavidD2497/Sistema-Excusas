@@ -1,57 +1,78 @@
 package com.excusas.model.prontuarios;
 
-import com.excusas.exceptions.ProntuarioException;
 import com.excusas.model.empleados.Empleado;
 import com.excusas.model.empleados.encargados.CEO;
 import com.excusas.model.excusas.Excusa;
 import com.excusas.model.excusas.motivos.MotivoInverosimil;
-import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.prontuarios.interfaces.IObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class AdministradorProntuariosTest {
 
     private AdministradorProntuarios administrador;
     private Empleado empleado;
     private Excusa excusa;
-    private IEncargado ceo;
+    private CEO ceo;
+    private IObserver observadorMock;
 
     @BeforeEach
     void setUp() {
         administrador = AdministradorProntuarios.getInstance();
-        administrador.limpiarProntuarios(); // Limpiar para cada test
+        administrador.limpiarProntuarios();
+
         empleado = new Empleado("Juan Pérez", "juan@empresa.com", 1001);
-        excusa = new Excusa(empleado, new MotivoInverosimil(), "Me secuestraron los aliens");
+        excusa = new Excusa(empleado, new MotivoInverosimil(), "Fui abducido por aliens");
         ceo = new CEO("Roberto CEO", "roberto@excusas.com", 2004);
+
+        observadorMock = Mockito.mock(IObserver.class);
+        administrador.agregarObservador(observadorMock);
     }
 
     @Test
-    void deberiaCrearProntuarioCuandoCEOProcesaExcusaInverosimil() {
-        int prontuariosIniciales = administrador.getProntuarios().size();
+    void debeCrearProntuarioCuandoCEOProcesaExcusaInverosimil() {
+        assertEquals(0, administrador.getProntuarios().size());
 
         administrador.notificarExcusaProcesada(excusa, ceo);
 
-        assertEquals(prontuariosIniciales + 1, administrador.getProntuarios().size());
+        assertEquals(1, administrador.getProntuarios().size());
+
+        Prontuario prontuario = administrador.getProntuarios().get(0);
+        assertEquals(empleado, prontuario.getEmpleado());
+        assertEquals(excusa, prontuario.getExcusa());
+        assertEquals(empleado.getLegajo(), prontuario.getLegajo());
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoProntuarioEsNulo() {
-        ProntuarioException exception = assertThrows(ProntuarioException.class, () -> {
-            administrador.agregarProntuario(null);
-        });
+    void debeNotificarObservadoresCuandoSeAgregaProntuario() {
+        Prontuario prontuario = new Prontuario(empleado, excusa, empleado.getLegajo());
 
-        assertEquals("El prontuario no puede ser nulo", exception.getMessage());
+        administrador.agregarProntuario(prontuario);
+
+        verify(observadorMock, times(1)).actualizar(prontuario);
     }
 
     @Test
-    void deberiaLimpiarProntuariosCorrectamente() {
+    void debeLimpiarProntuariosCorrectamente() {
         Prontuario prontuario = new Prontuario(empleado, excusa, empleado.getLegajo());
         administrador.agregarProntuario(prontuario);
 
+        assertEquals(1, administrador.getProntuarios().size());
+
         administrador.limpiarProntuarios();
 
-        assertTrue(administrador.getProntuarios().isEmpty());
+        assertEquals(0, administrador.getProntuarios().size());
+    }
+
+    @Test
+    void noDebeCrearProntuarioCuandoNoEsCEO() {
+        Empleado noEsCeo = new Empleado("No CEO", "noceo@excusas.com", 9999);
+
+        assertEquals(0, administrador.getProntuarios().size());
     }
 }
 

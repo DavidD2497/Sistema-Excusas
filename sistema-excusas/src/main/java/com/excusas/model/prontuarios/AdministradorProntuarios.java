@@ -2,26 +2,21 @@ package com.excusas.model.prontuarios;
 
 import com.excusas.model.excusas.Excusa;
 import com.excusas.model.empleados.interfaces.IEncargado;
-import com.excusas.model.prontuarios.interfaces.IObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdministradorProntuarios extends ObservableBase implements IObserver {
+public class AdministradorProntuarios extends ObservableBase {
 
+    private static final AdministradorProntuarios INSTANCIA = new AdministradorProntuarios();
     private final List<Prontuario> prontuarios;
 
     private AdministradorProntuarios() {
         super();
         this.prontuarios = new ArrayList<>();
-        this.agregarObservador(this);
-    }
-
-    private static class SingletonHolder {
-        private static final AdministradorProntuarios INSTANCIA = new AdministradorProntuarios();
     }
 
     public static AdministradorProntuarios getInstance() {
-        return SingletonHolder.INSTANCIA;
+        return INSTANCIA;
     }
 
     public void notificarExcusaProcesada(Excusa excusa, IEncargado encargadoProcesador) {
@@ -56,11 +51,5 @@ public class AdministradorProntuarios extends ObservableBase implements IObserve
 
     public void limpiarProntuarios() {
         this.prontuarios.clear();
-    }
-
-    @Override
-    public void actualizar(Prontuario prontuario) {
-        System.out.println("AdministradorProntuarios: Nuevo prontuario registrado para " +
-                prontuario.getEmpleado().getNombre());
     }
 }

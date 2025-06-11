@@ -1,48 +1,27 @@
 package com.excusas.model.empleados.encargados;
 
 import com.excusas.model.email.EmailSenderConcreto;
-import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.empleados.interfaces.IManejadorExcusas;
 import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
 import com.excusas.model.empleados.encargados.modos.ModoNormal;
 import com.excusas.model.excusas.Excusa;
 
-public class EncargadoPorDefecto implements IEncargado {
+public class EncargadoPorDefecto implements IManejadorExcusas {
 
-    private final String nombre;
-    private final String email;
-    private final int legajo;
-    private IEncargado siguiente;
+    private IManejadorExcusas siguiente;
     private IModoManejo modo;
 
-    public EncargadoPorDefecto(String nombre, String email, int legajo) {
-        this.nombre = nombre;
-        this.email = email;
-        this.legajo = legajo;
+    public EncargadoPorDefecto() {
         this.modo = new ModoNormal();
     }
 
     @Override
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    @Override
-    public String getEmail() {
-        return this.email;
-    }
-
-    @Override
-    public int getLegajo() {
-        return this.legajo;
-    }
-
-    @Override
-    public void setSiguiente(IEncargado siguiente) {
+    public void setSiguiente(IManejadorExcusas siguiente) {
         this.siguiente = siguiente;
     }
 
     @Override
-    public IEncargado getSiguiente() {
+    public IManejadorExcusas getSiguiente() {
         return this.siguiente;
     }
 
@@ -72,7 +51,7 @@ public class EncargadoPorDefecto implements IEncargado {
 
         new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
-                this.getEmail(),
+                "sistema@excusas.com",
                 "Excusa rechazada",
                 "Excusa rechazada: necesitamos pruebas contundentes"
         );
@@ -96,5 +75,10 @@ public class EncargadoPorDefecto implements IEncargado {
     @Override
     public boolean puedeManejarInverosimil() {
         return false;
+    }
+
+    @Override
+    public String getEmailOrigen() {
+        return "sistema@excusas.com";
     }
 }

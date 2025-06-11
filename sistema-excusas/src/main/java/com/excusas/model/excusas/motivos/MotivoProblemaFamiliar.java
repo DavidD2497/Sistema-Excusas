@@ -1,25 +1,12 @@
 package com.excusas.model.excusas.motivos;
+
+import com.excusas.model.empleados.encargados.SupervisorArea;
+import com.excusas.model.excusas.Excusa;
+
 public class MotivoProblemaFamiliar extends MotivoModerado {
 
     @Override
-    protected String getDestinatarioEmail(String emailEmpleado) {
-        return emailEmpleado;
-    }
-
-    @Override
-    protected String getAsuntoEmail() {
-        return "Consulta familiar";
-    }
-
-    @Override
-    protected String getCuerpoEmail() {
-        return "¿Todo está bien con tu familiar?";
-    }
-
-    @Override
-    protected String getMensajeLog() {
-        return "Preguntando al empleado si todo está bien con el familiar";
+    public void procesarConSupervisor(SupervisorArea supervisor, Excusa excusa) {
+        supervisor.procesarProblemaFamiliar(excusa);
     }
 }
-
-

@@ -20,34 +20,33 @@ public class CEO extends Encargado implements IObserver {
     }
 
     @Override
-    protected void preprocesarExcusa(Excusa excusa) {
-        super.preprocesarExcusa(excusa);
-        System.out.println("CEO evaluando excusa extremadamente inverosímil...");
-    }
-
-    @Override
     public void procesarExcusa(Excusa excusa) {
-        System.out.println("CEO procesando excusa extremadamente inverosímil para: " + excusa.getNombreEmpleado());
-
         new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "Respuesta CEO",
                 "Aprobado por creatividad"
         );
-        System.out.println("Respuesta: Aprobado por creatividad");
-    }
 
-    @Override
-    protected void postprocesarExcusa(Excusa excusa) {
-        super.postprocesarExcusa(excusa);
         AdministradorProntuarios.getInstance().notificarExcusaProcesada(excusa, this);
-        System.out.println("CEO ha completado el procesamiento y notificado al administrador de prontuarios");
     }
 
     @Override
     public void actualizar(Prontuario prontuario) {
         System.out.println("CEO " + this.getNombre() + " notificado sobre nuevo prontuario de: " +
                 prontuario.getEmpleado().getNombre());
+
+        this.notificarOtrosCEOs(prontuario);
+    }
+
+    private void notificarOtrosCEOs(Prontuario prontuario) {
+        new EmailSenderConcreto().enviarEmail(
+                "todos-ceos@excusas.com",
+                this.getEmail(),
+                "Nuevo Prontuario Creado",
+                "Se ha creado un nuevo prontuario para el empleado: " +
+                        prontuario.getEmpleado().getNombre() + " (Legajo: " + prontuario.getLegajo() + ")"
+        );
+        System.out.println("Notificando a todos los CEOs sobre el nuevo prontuario");
     }
 }

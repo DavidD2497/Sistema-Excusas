@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class ObservableBase implements IObservable {
 
-    protected final List<IObserver> observadores;
+    private final List<IObserver> observadores;
 
     protected ObservableBase() {
         this.observadores = new ArrayList<>();

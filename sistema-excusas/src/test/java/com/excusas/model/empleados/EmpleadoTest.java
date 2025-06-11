@@ -1,67 +1,77 @@
 package com.excusas.model.empleados;
 
-import com.excusas.exceptions.EmpleadoException;
+import com.excusas.model.excusas.Excusa;
+import com.excusas.model.excusas.motivos.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmpleadoTest {
 
-    @Test
-    void deberiaCrearEmpleadoCorrectamente() {
-        String nombre = "Juan Pérez";
-        String email = "juan@empresa.com";
-        int legajo = 1001;
+    private Empleado empleado;
 
-        Empleado empleado = new Empleado(nombre, email, legajo);
-
-        assertEquals(nombre, empleado.getNombre());
-        assertEquals(email, empleado.getEmail());
-        assertEquals(legajo, empleado.getLegajo());
+    @BeforeEach
+    void setUp() {
+        empleado = new Empleado("Juan Pérez", "juan@empresa.com", 1001);
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoNombreEsNulo() {
-        EmpleadoException exception = assertThrows(EmpleadoException.class, () -> {
-            new Empleado(null, "juan@empresa.com", 1001);
-        });
+    void empleadoPuedeCrearExcusaConMotivoTrivial() {
+        MotivoExcusa motivo = new MotivoTrivial();
+        String descripcion = "Llegué tarde por el tráfico";
 
-        assertEquals("El nombre del empleado no puede estar vacío", exception.getMessage());
+        Excusa excusa = empleado.crearExcusa(motivo, descripcion);
+
+        assertNotNull(excusa);
+        assertEquals(empleado, excusa.getEmpleado());
+        assertEquals(motivo, excusa.getMotivo());
+        assertEquals(descripcion, excusa.getDescripcion());
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoNombreEstaVacio() {
-        EmpleadoException exception = assertThrows(EmpleadoException.class, () -> {
-            new Empleado("   ", "juan@empresa.com", 1001);
-        });
+    void empleadoPuedeCrearExcusaConMotivoModerado() {
+        MotivoExcusa motivo = new MotivoProblemaFamiliar();
+        String descripcion = "Tuve que cuidar a mi familiar enfermo";
 
-        assertEquals("El nombre del empleado no puede estar vacío", exception.getMessage());
+        Excusa excusa = empleado.crearExcusa(motivo, descripcion);
+
+        assertNotNull(excusa);
+        assertEquals(empleado, excusa.getEmpleado());
+        assertEquals(motivo, excusa.getMotivo());
+        assertEquals(descripcion, excusa.getDescripcion());
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoEmailEsNulo() {
-        EmpleadoException exception = assertThrows(EmpleadoException.class, () -> {
-            new Empleado("Juan Pérez", null, 1001);
-        });
+    void empleadoPuedeCrearExcusaConMotivoComplejo() {
+        MotivoExcusa motivo = new MotivoComplejo();
+        String descripcion = "Una paloma robó mi bicicleta";
 
-        assertEquals("El email del empleado no puede estar vacío", exception.getMessage());
+        Excusa excusa = empleado.crearExcusa(motivo, descripcion);
+
+        assertNotNull(excusa);
+        assertEquals(empleado, excusa.getEmpleado());
+        assertEquals(motivo, excusa.getMotivo());
+        assertEquals(descripcion, excusa.getDescripcion());
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoLegajoEsNegativo() {
-        EmpleadoException exception = assertThrows(EmpleadoException.class, () -> {
-            new Empleado("Juan Pérez", "juan@empresa.com", -1);
-        });
+    void empleadoPuedeCrearExcusaConMotivoInverosimil() {
+        MotivoExcusa motivo = new MotivoInverosimil();
+        String descripcion = "Fui abducido por aliens";
 
-        assertEquals("El legajo debe ser un número positivo", exception.getMessage());
+        Excusa excusa = empleado.crearExcusa(motivo, descripcion);
+
+        assertNotNull(excusa);
+        assertEquals(empleado, excusa.getEmpleado());
+        assertEquals(motivo, excusa.getMotivo());
+        assertEquals(descripcion, excusa.getDescripcion());
     }
 
     @Test
-    void deberiaLanzarExcepcionCuandoLegajoEsCero() {
-        EmpleadoException exception = assertThrows(EmpleadoException.class, () -> {
-            new Empleado("Juan Pérez", "juan@empresa.com", 0);
-        });
-
-        assertEquals("El legajo debe ser un número positivo", exception.getMessage());
+    void empleadoTieneDatosCorrectos() {
+        assertEquals("Juan Pérez", empleado.getNombre());
+        assertEquals("juan@empresa.com", empleado.getEmail());
+        assertEquals(1001, empleado.getLegajo());
     }
 }
 

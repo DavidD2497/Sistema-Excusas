@@ -1,13 +1,14 @@
 package com.excusas.model.empleados;
 
 import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.empleados.interfaces.IManejadorExcusas;
 import com.excusas.model.empleados.encargados.modos.interfaces.IModoManejo;
 import com.excusas.model.empleados.encargados.modos.ModoNormal;
 import com.excusas.model.excusas.Excusa;
 
 public abstract class Encargado extends Empleado implements IEncargado {
 
-    private IEncargado siguiente;
+    private IManejadorExcusas siguiente;
     private IModoManejo modo;
 
     public Encargado(String nombre, String email, int legajo) {
@@ -16,12 +17,12 @@ public abstract class Encargado extends Empleado implements IEncargado {
     }
 
     @Override
-    public void setSiguiente(IEncargado siguiente) {
+    public void setSiguiente(IManejadorExcusas siguiente) {
         this.siguiente = siguiente;
     }
 
     @Override
-    public IEncargado getSiguiente() {
+    public IManejadorExcusas getSiguiente() {
         return this.siguiente;
     }
 
@@ -43,26 +44,10 @@ public abstract class Encargado extends Empleado implements IEncargado {
     @Override
     public final void ejecutarProcesamiento(Excusa excusa) {
         if (excusa.puedeSerManejadaPor(this)) {
-            this.preprocesarExcusa(excusa);
             this.procesarExcusa(excusa);
-            this.postprocesarExcusa(excusa);
-        } else if (this.getSiguiente() != null) {
-            this.getSiguiente().manejarExcusa(excusa);
         } else {
-            this.manejarExcusaNoManejable(excusa);
+            this.getSiguiente().manejarExcusa(excusa);
         }
-    }
-
-    protected void preprocesarExcusa(Excusa excusa) {
-        System.out.println("Iniciando procesamiento de excusa para: " + excusa.getNombreEmpleado());
-    }
-
-    protected void postprocesarExcusa(Excusa excusa) {
-        System.out.println("Finalizando procesamiento de excusa para: " + excusa.getNombreEmpleado());
-    }
-
-    protected void manejarExcusaNoManejable(Excusa excusa) {
-        System.out.println("Excusa no pudo ser manejada por ningún encargado");
     }
 
     @Override
@@ -86,5 +71,10 @@ public abstract class Encargado extends Empleado implements IEncargado {
     @Override
     public boolean puedeManejarInverosimil() {
         return false;
+    }
+
+    @Override
+    public String getEmailOrigen() {
+        return this.getEmail();
     }
 }

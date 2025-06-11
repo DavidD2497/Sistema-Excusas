@@ -16,25 +16,12 @@ public class Recepcionista extends Encargado {
     }
 
     @Override
-    protected void preprocesarExcusa(Excusa excusa) {
-        super.preprocesarExcusa(excusa);
-        System.out.println("Recepcionista verificando documentación básica...");
-    }
-
-    @Override
     public void procesarExcusa(Excusa excusa) {
-        System.out.println("Recepcionista procesando excusa trivial para: " + excusa.getNombreEmpleado());
         new EmailSenderConcreto().enviarEmail(
                 excusa.getEmailEmpleado(),
                 this.getEmail(),
                 "motivo demora",
                 "la licencia fue aceptada"
         );
-    }
-
-    @Override
-    protected void postprocesarExcusa(Excusa excusa) {
-        super.postprocesarExcusa(excusa);
-        System.out.println("Recepcionista ha registrado la excusa en el sistema");
     }
 }

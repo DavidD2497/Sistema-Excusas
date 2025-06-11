@@ -1,10 +1,9 @@
 package com.excusas.model.excusas;
 
-import com.excusas.exceptions.ExcusaException;
 import com.excusas.model.excusas.interfaces.IExcusa;
 import com.excusas.model.excusas.motivos.MotivoExcusa;
 import com.excusas.model.empleados.Empleado;
-import com.excusas.model.empleados.interfaces.IEncargado;
+import com.excusas.model.empleados.interfaces.IManejadorExcusas;
 
 public class Excusa implements IExcusa {
 
@@ -34,7 +33,7 @@ public class Excusa implements IExcusa {
     }
 
     @Override
-    public boolean puedeSerManejadaPor(IEncargado encargado) {
+    public boolean puedeSerManejadaPor(IManejadorExcusas encargado) {
         return this.motivo.esAceptablePor(encargado);
     }
 
@@ -48,9 +47,5 @@ public class Excusa implements IExcusa {
 
     public int getLegajoEmpleado() {
         return this.empleado.getLegajo();
-    }
-
-    public void ejecutarAccionesEspecificas(IEncargado encargado) {
-        this.motivo.ejecutarAccionesEspecificas(encargado, this.empleado.getEmail());
     }
 }

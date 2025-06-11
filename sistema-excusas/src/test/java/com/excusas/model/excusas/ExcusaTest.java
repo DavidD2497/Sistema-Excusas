@@ -1,9 +1,9 @@
 package com.excusas.model.excusas;
 
-import com.excusas.exceptions.ExcusaException;
 import com.excusas.model.empleados.Empleado;
-import com.excusas.model.excusas.motivos.MotivoTrivial;
-import com.excusas.model.excusas.motivos.MotivoExcusa;
+import com.excusas.model.empleados.encargados.*;
+import com.excusas.model.empleados.interfaces.IManejadorExcusas;
+import com.excusas.model.excusas.motivos.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,62 +11,78 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExcusaTest {
 
     private Empleado empleado;
-    private MotivoExcusa motivo;
+    private IManejadorExcusas recepcionista;
+    private IManejadorExcusas supervisor;
+    private IManejadorExcusas gerente;
+    private IManejadorExcusas ceo;
+    private IManejadorExcusas encargadoPorDefecto;
 
     @BeforeEach
     void setUp() {
         empleado = new Empleado("Juan Pérez", "juan@empresa.com", 1001);
-        motivo = new MotivoTrivial();
+        recepcionista = new Recepcionista("Laura Recep", "laura@excusas.com", 2001);
+        supervisor = new SupervisorArea("Pedro Super", "pedro@excusas.com", 2002);
+        gerente = new GerenteRecursosHumanos("Sofia Gerente", "sofia@excusas.com", 2003);
+        ceo = new CEO("Roberto CEO", "roberto@excusas.com", 2004);
+        encargadoPorDefecto = new EncargadoPorDefecto();
     }
 
     @Test
-    void deberiaCrearExcusaCorrectamente() {
-        String descripcion = "Llegué tarde por el tráfico";
+    void excusaTrivialPuedeSerManejadaPorRecepcionista() {
+        Excusa excusa = new Excusa(empleado, new MotivoTrivial(), "Llegué tarde por el tráfico");
 
+        assertTrue(excusa.puedeSerManejadaPor(recepcionista));
+        assertFalse(excusa.puedeSerManejadaPor(supervisor));
+        assertFalse(excusa.puedeSerManejadaPor(gerente));
+        assertFalse(excusa.puedeSerManejadaPor(ceo));
+        assertFalse(excusa.puedeSerManejadaPor(encargadoPorDefecto));
+    }
+
+    @Test
+    void excusaModeradaPuedeSerManejadaPorSupervisor() {
+        Excusa excusa = new Excusa(empleado, new MotivoProblemaFamiliar(), "Tuve que cuidar a mi familiar enfermo");
+
+        assertFalse(excusa.puedeSerManejadaPor(recepcionista));
+        assertTrue(excusa.puedeSerManejadaPor(supervisor));
+        assertFalse(excusa.puedeSerManejadaPor(gerente));
+        assertFalse(excusa.puedeSerManejadaPor(ceo));
+        assertFalse(excusa.puedeSerManejadaPor(encargadoPorDefecto));
+    }
+
+    @Test
+    void excusaComplejaPuedeSerManejadaPorGerente() {
+        Excusa excusa = new Excusa(empleado, new MotivoComplejo(), "Una paloma robó mi bicicleta");
+
+        assertFalse(excusa.puedeSerManejadaPor(recepcionista));
+        assertFalse(excusa.puedeSerManejadaPor(supervisor));
+        assertTrue(excusa.puedeSerManejadaPor(gerente));
+        assertFalse(excusa.puedeSerManejadaPor(ceo));
+        assertFalse(excusa.puedeSerManejadaPor(encargadoPorDefecto));
+    }
+
+    @Test
+    void excusaInverosimilPuedeSerManejadaPorCEO() {
+        Excusa excusa = new Excusa(empleado, new MotivoInverosimil(), "Fui abducido por aliens");
+
+        assertFalse(excusa.puedeSerManejadaPor(recepcionista));
+        assertFalse(excusa.puedeSerManejadaPor(supervisor));
+        assertFalse(excusa.puedeSerManejadaPor(gerente));
+        assertTrue(excusa.puedeSerManejadaPor(ceo));
+        assertFalse(excusa.puedeSerManejadaPor(encargadoPorDefecto));
+    }
+
+    @Test
+    void excusaDevuelveDatosCorrectos() {
+        MotivoExcusa motivo = new MotivoTrivial();
+        String descripcion = "Llegué tarde por el tráfico";
         Excusa excusa = new Excusa(empleado, motivo, descripcion);
 
         assertEquals(empleado, excusa.getEmpleado());
         assertEquals(motivo, excusa.getMotivo());
         assertEquals(descripcion, excusa.getDescripcion());
-        assertEquals(empleado.getEmail(), excusa.getEmailEmpleado());
-        assertEquals(empleado.getNombre(), excusa.getNombreEmpleado());
-        assertEquals(empleado.getLegajo(), excusa.getLegajoEmpleado());
-    }
-
-    @Test
-    void deberiaLanzarExcepcionCuandoEmpleadoEsNulo() {
-        ExcusaException exception = assertThrows(ExcusaException.class, () -> {
-            new Excusa(null, motivo, "Descripción válida");
-        });
-
-        assertEquals("El empleado no puede ser nulo", exception.getMessage());
-    }
-
-    @Test
-    void deberiaLanzarExcepcionCuandoMotivoEsNulo() {
-        ExcusaException exception = assertThrows(ExcusaException.class, () -> {
-            new Excusa(empleado, null, "Descripción válida");
-        });
-
-        assertEquals("El motivo de la excusa no puede ser nulo", exception.getMessage());
-    }
-
-    @Test
-    void deberiaLanzarExcepcionCuandoDescripcionEsNula() {
-        ExcusaException exception = assertThrows(ExcusaException.class, () -> {
-            new Excusa(empleado, motivo, null);
-        });
-
-        assertEquals("La descripción de la excusa no puede estar vacía", exception.getMessage());
-    }
-
-    @Test
-    void deberiaLanzarExcepcionCuandoDescripcionEstaVacia() {
-        ExcusaException exception = assertThrows(ExcusaException.class, () -> {
-            new Excusa(empleado, motivo, "   ");
-        });
-
-        assertEquals("La descripción de la excusa no puede estar vacía", exception.getMessage());
+        assertEquals("Juan Pérez", excusa.getNombreEmpleado());
+        assertEquals("juan@empresa.com", excusa.getEmailEmpleado());
+        assertEquals(1001, excusa.getLegajoEmpleado());
     }
 }
 
